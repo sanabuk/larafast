@@ -1,0 +1,28 @@
+{
+  "name": "sanabuk/larafast",
+  "description": "Parse and build",
+  "homepage": "https://github.com/sanabuk/larafast",
+  "authors": [
+    {
+      "name": "sanabuk",
+      "email": "gui_dev@orange.fr"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": "~5.1",
+    "illuminate/http": "~5.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "sanabuk\\larafast\\": "/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+        "branch-alias": {
+            "dev-master": "0.0.1"
+        }
+  }
+}
