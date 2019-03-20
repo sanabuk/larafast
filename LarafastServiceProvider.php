@@ -9,7 +9,9 @@ class LarafastServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__.'/path/to/config/larafast.php' => config_path('larafast.php'),
+        ]);
     }
 
     public function register()
