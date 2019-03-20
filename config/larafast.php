@@ -1,4 +1,7 @@
 <?php
+/**
+ * Models with their foreignKeyNames and relatedKeyNames
+ */
 return [
     'driver'   => ['id'],
     'vehicle'  => ['id', 'driver_id'],
