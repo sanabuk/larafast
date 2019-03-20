@@ -17,11 +17,11 @@ trait QueryParser
     protected $askedModel;
 
     //TODO create config file
-    protected $config = [
+    /*protected $config = [
         'driver' => ['id'],
         'vehicle' => ['id','driver_id'],
         'historic' => ['driver_id','vehicle_id']
-    ];
+    ];*/
 
     public function getDatas(Request $request, $query)
     {
