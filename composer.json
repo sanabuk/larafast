@@ -19,7 +19,7 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
+  "prefer-stable": false,
   "extra": {
         "branch-alias": {
             "master": "0.0.1"
