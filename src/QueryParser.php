@@ -71,7 +71,7 @@ trait QueryParser
      */
     private function handlingFormat($query, $format)
     {
-        $selectArray = $this->config[$this->askedModel];
+        $selectArray = config('larafast.'.$this->askedModel);
         foreach ($format as $key => $value) {
             if (is_integer($key)) {
                 // Conditions sur le modèle de base de la requête
@@ -129,7 +129,7 @@ trait QueryParser
      */
     private function constrainsSelectAndSortAndWhere($q, $model, $param)
     {
-        $selectArray = $this->config[$model];
+        $selectArray = config('larafast.'.$model);
         foreach ($param as $key => $v) {
             if (is_integer($key)) {
                 if ($this->isSort($key)) {
