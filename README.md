@@ -1,4 +1,4 @@
-# larafast
+# Larafast
 Build your request Eloquent via url parameters
 
 ### Principes
