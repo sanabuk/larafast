@@ -12,6 +12,7 @@ class LarafastServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/larafast.php' => config_path('larafast.php'),
         ]);
+        $this->loadRoutesFrom(__DIR__.'/../src/routes.php');
     }
 
     public function register()

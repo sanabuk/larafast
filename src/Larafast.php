@@ -22,15 +22,15 @@ class Larafast
     }
 
     /**
-     * @param Request $request
+     * @param array $queryParamUrl
      * @param Builder $query
      * @return Builder
      */ 
-    public function getDatas(Request $request, $query)
+    public function getDatas($queryParamUrl)
     {
-        $queryParamUrl = $request->all();
-
         $this->askedModel = $queryParamUrl['model'];
+        $class = 'sanabuk\driver\models\\';
+        $query = new $class.ucfirst($this->askedModel);
         $parser           = new ParentheseParser();
         $conditions       = $parser->generate($queryParamUrl['conditions']);
         $output           = $parser->generate($queryParamUrl['output']);
