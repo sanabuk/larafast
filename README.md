@@ -1,22 +1,33 @@
 # Larafast
 Build your request Eloquent via url parameters
+...
 
-### Principes
-
-In ModelController@index :
-- Instanciate sanabuk\larafast\Larafast
-- Call function getDatas(Request, Model) that returns Eloquent\Builder
-```php
-use sanabuk\larafast\Larafast
-
-public function index(Request $request)
-{
-    $larafast = new Larafast();
-    $datas   = $larafast->getDatas($request, new Model());
-    return new JsonResponse($datas->paginate(15)->appends($request->input()), 200);
-}
+### Installation
+Install the package
+```sh
+composer require sanabuk/larafast
 ```
 
+Publish config file larafast.php
+```sh
+php artisan vendor:publish sanabuk\larafast\LarafastServiceProvider
+```
+
+### Principes
+Edit config/larafast.php
+```php
+return [
+    'models' => [
+        'your_model_name' => 'namespace model',
+        ...
+    ],
+    'relations' => [
+        ...,
+        ...
+    ]
+];
+```
+       
 Write your url with 3 parameters:
 - **model** : the requested model
 - **conditions** : applied on requested model
@@ -34,7 +45,4 @@ Write your url with 3 parameters:
 > https://my_project.com/animal?model=animal&conditions=like=name:ca,max=id:20&output=id,name,class,sort=-id
 > ```
 
-### Installation
-```sh
-composer require sanabuk/larafast
-```
+
