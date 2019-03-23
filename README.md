@@ -17,6 +17,7 @@ php artisan vendor:publish sanabuk\larafast\LarafastServiceProvider
 Edit config/larafast.php
 ```php
 return [
+    'route' => 'my-larafast-route'
     'models' => [
         'your_model_name' => 'namespace model',
         ...
@@ -42,7 +43,7 @@ Write your url with 3 parameters:
 > **example** : I want to recover `animal` with a `name` containing the letters `ca` and an `id` max of `20`. I want recover animal's name, his class sort by their id desc
 > ```sh
 > HTTPS GET
-> https://my_project.com/animal?model=animal&conditions=like=name:ca,max=id:20&output=id,name,class,sort=-id
+> https://my_project.com/my-larafast-route?model=animal&conditions=like=name:ca,max=id:20&output=id,name,class,sort=-id
 > ```
 
 
