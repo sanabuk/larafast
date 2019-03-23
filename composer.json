@@ -1,6 +1,10 @@
 {
   "name": "sanabuk/larafast",
   "description": "Parse and build",
+  "keywords": [
+    "larafast",
+    "laravel"
+  ],
   "homepage": "https://github.com/sanabuk/larafast",
   "authors": [
     {
