@@ -29,8 +29,7 @@ class Larafast
     public function getDatas($queryParamUrl)
     {
         $this->askedModel = $queryParamUrl['model'];
-        $class = 'sanabuk\\driver\\models\\'.ucfirst($this->askedModel);
-        $query = new $class;
+        $query = new config('larafast.models.'.$this->askedModel);
         $parser           = new ParentheseParser();
         $conditions       = $parser->generate($queryParamUrl['conditions']);
         $output           = $parser->generate($queryParamUrl['output']);
