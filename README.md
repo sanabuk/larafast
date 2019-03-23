@@ -2,23 +2,17 @@
 Build your request Eloquent via url parameters
 
 ### Principes
-Use trait QueryParser in App\Http\Controllers\Controller
-```php
-class Controller extends BaseController
-{
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    use QueryParser;
-}
-```
 
 In ModelController@index :
-- Instanciate your model
+- Instanciate 
 - Call function getDatas(Request, Model)
 ```php
+use sanabuk\larafast\Larafast
+
 public function index(Request $request)
 {
-    $model = new Model();
-    $datas   = $this->getDatas($request, $model);
+    $larafast = new Larafast();
+    $datas   = $larafast->getDatas($request, new Model());
     return new JsonResponse($datas->paginate(15)->appends($request->input()), 200);
 }
 ```
