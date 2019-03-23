@@ -117,7 +117,6 @@ class Larafast
     {
         return function ($q) use ($relation, $counter, $param) {
             $q = $this->constrainsSelectAndSortAndWhere($q, $relation, $param);
-            $handler_key_name = new HandlerKeyName($q);
         };
     }
 
