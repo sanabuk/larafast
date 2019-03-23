@@ -21,6 +21,11 @@ class Larafast
         $this->askedModel = '';
     }
 
+    /**
+     * @param Request $request
+     * @param Builder $query
+     * @return Builder
+     */ 
     public function getDatas(Request $request, $query)
     {
         $queryParamUrl = $request->all();
