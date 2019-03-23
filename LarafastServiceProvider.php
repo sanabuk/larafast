@@ -3,6 +3,7 @@ namespace sanabuk\larafast;
 
 use Illuminate\Support\ServiceProvider;
 use sanabuk\larafast\ParentheseParser;
+use sanabuk\larafast\LarafastController
 
 class LarafastServiceProvider extends ServiceProvider
 {
@@ -12,13 +13,16 @@ class LarafastServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/larafast.php' => config_path('larafast.php'),
         ]);
-        $this->loadRoutesFrom(__DIR__.'/../src/routes.php');
+        $this->loadRoutesFrom(__DIR__.'/src/routes.php');
     }
 
     public function register()
     {
         $this->app->bind('ParentheseParser', function ($app) {
-            $driver = new ParentheseParser();
+            return new ParentheseParser();
+        });
+        $this->app->bind('LarafastController', function ($app) {
+            return new LarafastController();
         });
     }
 }

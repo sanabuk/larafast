@@ -1,5 +1,5 @@
 <?php
-namespace sanabuk\larafast
+namespace sanabuk\larafast;
 
 use Exception;
 
