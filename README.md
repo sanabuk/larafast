@@ -5,7 +5,7 @@ Build your request Eloquent via url parameters
 
 In ModelController@index :
 - Instanciate sanabuk\larafast\Larafast
-- Call function getDatas(Request, Model)
+- Call function getDatas(Request, Model) that returns Eloquent\Builder
 ```php
 use sanabuk\larafast\Larafast
 
