@@ -12,16 +12,14 @@ use Illuminate\Http\Request;
  * ?model=driver&conditions=max=id:100,...,&output=...
  * */
 
-trait QueryParser
+class Larafast
 {
     protected $askedModel;
 
-    //TODO create config file
-    /*protected $config = [
-        'driver' => ['id'],
-        'vehicle' => ['id','driver_id'],
-        'historic' => ['driver_id','vehicle_id']
-    ];*/
+    public function __construct()
+    {
+        $this->askedModel = '';
+    }
 
     public function getDatas(Request $request, $query)
     {
