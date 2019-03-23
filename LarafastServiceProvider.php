@@ -3,7 +3,7 @@ namespace sanabuk\larafast;
 
 use Illuminate\Support\ServiceProvider;
 use sanabuk\larafast\ParentheseParser;
-use sanabuk\larafast\LarafastController
+use sanabuk\larafast\LarafastController;
 
 class LarafastServiceProvider extends ServiceProvider
 {
