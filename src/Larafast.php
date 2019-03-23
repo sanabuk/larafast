@@ -29,7 +29,8 @@ class Larafast
     public function getDatas($queryParamUrl)
     {
         $this->askedModel = $queryParamUrl['model'];
-        $query = new config('larafast.models.'.$this->askedModel);
+        $class = config('larafast.models.'.$this->askedModel);
+        $query = new $class;
         $parser           = new ParentheseParser();
         $conditions       = $parser->generate($queryParamUrl['conditions']);
         $output           = $parser->generate($queryParamUrl['output']);
