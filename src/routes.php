@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/larafast','LarafastController@index');
+Route::get('/'.config('larafast.route'),'LarafastController@index');
