@@ -47,7 +47,7 @@ class Larafast
      * @param array $conditions
      * @return Builder $query
      */
-    private function handlingConditions($query, $conditions)
+    protected function handlingConditions($query, $conditions)
     {
         foreach ($conditions as $key => $value) {
             if (is_integer($key)) {
@@ -72,7 +72,7 @@ class Larafast
      * @param array $format
      * @return Builder $query
      */
-    private function handlingFormat($query, $format)
+    protected function handlingFormat($query, $format)
     {
         $selectArray = config('larafast.'.$this->asked_model);
         foreach ($format as $key => $value) {
@@ -105,7 +105,7 @@ class Larafast
      * @param int $counter
      * @return Builder
      */
-    private function addEagerLoadRelation($query, $relation, $param, $counter = 0)
+    protected function addEagerLoadRelation($query, $relation, $param, $counter = 0)
     {
         $query = $query->with([$relation => $this->getCallback($relation, $counter, $param)]);
         return $query;
@@ -118,7 +118,7 @@ class Larafast
      * @param array $param
      * @return function
      */
-    private function getCallback($relation, $counter, $param)
+    protected function getCallback($relation, $counter, $param)
     {
         return function ($q) use ($relation, $counter, $param) {
             $q = $this->constrainsSelectAndSortAndWhere($q, $relation, $param);
@@ -130,7 +130,7 @@ class Larafast
      * @param string $model
      * @param array $param
      */
-    private function constrainsSelectAndSortAndWhere($q, $model, $param)
+    protected function constrainsSelectAndSortAndWhere($q, $model, $param)
     {
         $selectArray = config('larafast.'.$model);
         foreach ($param as $key => $v) {
@@ -162,37 +162,37 @@ class Larafast
         return $q;
     }
 
-    private function getConditionType($value)
+    protected function getConditionType($value)
     {
         return explode('=', $value);
     }
 
-    private function isSelect($key)
+    protected function isSelect($key)
     {
         return is_integer($key);
     }
 
-    private function addSelect($query, $column)
+    protected function addSelect($query, $column)
     {
         return $query->select($column);
     }
 
-    private function isSort($key)
+    protected function isSort($key)
     {
         return $key == 'sort';
     }
 
-    private function addSort($query, $column, $operator = 'ASC')
+    protected function addSort($query, $column, $operator = 'ASC')
     {
         return $query->orderBy($column, $operator);
     }
 
-    private function isWhere($key)
+    protected function isWhere($key)
     {
         return is_integer($key) ? false : in_array($key, ['equals', 'like', 'min', 'max']);
     }
 
-    private function addWhere($query, $column1, $column2, $operator = '=')
+    protected function addWhere($query, $column1, $column2, $operator = '=')
     {
         if ($operator == 'like') {
             $column2 = '%' . $column2 . '%';
@@ -200,10 +200,10 @@ class Larafast
         return $query->where($column1, $operator, $column2);
     }
 
-    private function constrainsWhereHas($q, $model, $param, $negation = false)
+    protected function constrainsWhereHas($q, $model, $param, $negation = false)
     {
-        if (!$negation) {
-            $q = $q->whereHas($model, function ($query) use ($param) {
+        $function = $negation ? 'whereDoesntHave' : 'whereHas';
+        $q = $q->$function($model, function ($query) use ($param) {
                 foreach ($param as $key => $value) {
                     if (is_integer($key)) {
                         list($type, $condition)  = $this->getConditionType($value);
@@ -215,20 +215,6 @@ class Larafast
                 }
                 $query;
             });
-        } else {
-            $q = $q->whereDoesntHave($model, function ($query) use ($param) {
-                foreach ($param as $key => $value) {
-                    if (is_integer($key)) {
-                        list($type, $condition)  = $this->getConditionType($value);
-                        list($needle, $haystack) = explode(':', $condition);
-                        $this->checkTypeAndApplyCondition($query, $type, $needle, $haystack);
-                    } else {
-                        $this->constrainsWhereHas($query, $key, $value);
-                    }
-                }
-                $query;
-            });
-        }
         return $q;
     }
 
@@ -239,7 +225,7 @@ class Larafast
      * @param string $haystack
      * @return Builder
      */
-    private function checkTypeAndApplyCondition($query, $type, $needle, $haystack)
+    protected function checkTypeAndApplyCondition($query, $type, $needle, $haystack)
     {
         switch ($type) {
             case 'equals':

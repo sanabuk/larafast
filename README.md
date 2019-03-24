@@ -38,6 +38,7 @@ Write your url with 3 parameters:
 > - like
 > - max
 > - min
+
 - **output** : output format
 
 > **example** : I want to recover `animal` with a `name` containing the letters `ca` and an `id` max of `20`. I want recover animal's name, his class sort by their id desc
