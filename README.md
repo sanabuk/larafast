@@ -1,5 +1,5 @@
 # Larafast
-Build your request Eloquent via url parameters
+Laravel 5 - Build your request Eloquent via url parameters
 ...
 
 ### Installation
