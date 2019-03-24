@@ -4,7 +4,7 @@ namespace sanabuk\larafast;
 use Illuminate\Http\Request;
 
 /**
- * Query Parser
+ * Larafast
  *
  * Test to generate Eloquent Request with Url Parameters
  *
@@ -14,26 +14,26 @@ use Illuminate\Http\Request;
 
 class Larafast
 {
-    protected $askedModel;
+    protected $asked_model;
 
     public function __construct()
     {
-        $this->askedModel = '';
+        $this->asked_model = '';
     }
 
     /**
-     * @param array $queryParamUrl
+     * @param array $url_parameters
      * @param Builder $query
      * @return Builder
      */ 
-    public function getDatas($queryParamUrl)
+    public function getDatas($url_parameters)
     {
-        $this->askedModel = $queryParamUrl['model'];
-        $class = config('larafast.models.'.$this->askedModel);
+        $this->asked_model = $url_parameters['model'];
+        $class = config('larafast.models.'.$this->asked_model);
         $query = new $class;
         $parser           = new ParentheseParser();
-        $conditions       = $parser->generate($queryParamUrl['conditions']);
-        $output           = $parser->generate($queryParamUrl['output']);
+        $conditions       = $parser->generate($url_parameters['conditions']);
+        $output           = $parser->generate($url_parameters['output']);
 
         $query = $this->handlingConditions($query, $conditions);
         $query = $this->handlingFormat($query, $output);
@@ -74,7 +74,7 @@ class Larafast
      */
     private function handlingFormat($query, $format)
     {
-        $selectArray = config('larafast.'.$this->askedModel);
+        $selectArray = config('larafast.'.$this->asked_model);
         foreach ($format as $key => $value) {
             if (is_integer($key)) {
                 // Conditions sur le modèle de base de la requête
