@@ -1,18 +1,22 @@
 <?php
-namespace sanabuk\larafast\tests;
+namespace sanabuk\larafast\Tests;
 
-use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use sanabuk\larafast\Larafast;
 
-class LarafastTest extends OrchestraTestCase
+class LarafastTest extends TestCase
 {
+	protected $larafast;
+
 	public function setUp()
 	{
 		parent::setUp();
+		$this->larafast = new Larafast();
 	}
 
-	public function test_test()
+	public function test_function_is_sort()
 	{
-		$this->assertTrue(true);
+		$this->assertEquals($this->invokeMethod($this->larafast,'isSort',['sort']), true);
+		$this->assertEquals($this->invokeMethod($this->larafast,'isSort',['sorti']), false);
 		$this->assertEquals(1,1);
-	} 
+	}
 }

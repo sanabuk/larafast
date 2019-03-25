@@ -25,7 +25,12 @@
   },
   "autoload": {
     "psr-4": {
-      "sanabuk\\larafast\\": "/"
+      "sanabuk\\larafast\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "sanabuk\\larafast\\Tests\\": "tests/"
     }
   },
   "minimum-stability": "dev",

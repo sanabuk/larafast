@@ -11,12 +11,12 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Larafast Test Suite">
-            <directory>tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">/</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
 </phpunit>
