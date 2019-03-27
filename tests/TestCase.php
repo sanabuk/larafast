@@ -4,13 +4,40 @@ namespace sanabuk\larafast\Tests;
 use sanabuk\larafast\LarafastServiceProvider;
 use sanabuk\larafast\LarafastFacade;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class TestCase extends OrchestraTestCase
 {
     public function setUp()
     {
         parent::setUp();
+        Schema::dropIfExists('tests');
+        Schema::create('tests', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        // Setup default database to use sqlite :memory:
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('database.connections.testing', [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ]);
+    }
+
     /**
      * Load package service provider
      * @param  \Illuminate\Foundation\Application $app
@@ -20,6 +47,7 @@ class TestCase extends OrchestraTestCase
     {
         return [LarafastServiceProvider::class];
     }
+
     /**
      * Load package alias
      * @param  \Illuminate\Foundation\Application $app
@@ -31,6 +59,7 @@ class TestCase extends OrchestraTestCase
             'Larafast' => LarafastFacade::class,
         ];
     }
+
     /**
      * Call protected/private method of a class.
      *
