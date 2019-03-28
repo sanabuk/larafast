@@ -93,7 +93,7 @@ class Larafast
                 $query    = $this->addEagerLoadRelation($query, $relation, $value);
             }
         }
-        $query = $query->select($selectArray);
+        $query = $this->addSelect($query, $selectArray);
         return $query;
     }
 

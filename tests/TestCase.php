@@ -4,6 +4,7 @@ namespace sanabuk\larafast\Tests;
 use sanabuk\larafast\LarafastServiceProvider;
 use sanabuk\larafast\LarafastFacade;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Orchestra\Database\ConsoleServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,12 +14,10 @@ class TestCase extends OrchestraTestCase
     public function setUp()
     {
         parent::setUp();
-        Schema::dropIfExists('tests');
-        Schema::create('tests', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
-        });
+        $this->loadMigrationsFrom([
+            '--database' => 'testing',
+            '--realpath' => realpath(__DIR__.'/../database/migrations'),
+        ]);
     }
 
     /**
@@ -45,7 +44,10 @@ class TestCase extends OrchestraTestCase
      */
     protected function getPackageProviders($app)
     {
-        return [LarafastServiceProvider::class];
+        return [
+            LarafastServiceProvider::class,
+            ConsoleServiceProvider::class,
+        ];
     }
 
     /**
