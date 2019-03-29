@@ -73,12 +73,25 @@ class LarafastTest extends TestCase
     public function test_function_add_select()
     {
         $query  = Test::query();
-        $models = $this->invokeMethod($this->larafast, 'addSelect', [$query, 'name']);
-        $this->assertEquals($models->toArray(),
+        $models = $this->invokeMethod($this->larafast, 'addSelect', [$query, 'name'])->get();
+        $this->assertEquals(
             [
                 0 => ['name' => 'smooth'],
                 1 => ['name' => 'doe'],
-            ]
+            ],
+            $models->toArray()            
         );
+    }
+
+    public function test_get_condition_type()
+    {
+        $models = $this->invokeMethod($this->larafast, 'getConditionType', ['equals=name:smooth']);
+        $this->assertEquals('equals', $models[0]);
+        $this->assertEquals('name:smooth', $models[1]);
+    }
+
+    public function test_constrains_where_has()
+    {
+        
     }
 }
