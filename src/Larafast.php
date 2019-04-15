@@ -34,7 +34,6 @@ class Larafast
         $parser           = new ParentheseParser();
         $conditions       = $parser->generate($url_parameters['conditions']);
         $output           = $parser->generate($url_parameters['output']);
-
         $query = $this->handlingConditions($query, $conditions);
         $query = $this->handlingFormat($query, $output);
         return $query;
@@ -93,7 +92,7 @@ class Larafast
                 $query    = $this->addEagerLoadRelation($query, $relation, $value);
             }
         }
-        $query = $query->select($selectArray);
+        $query = $this->addSelect($query, $selectArray);
         return $query;
     }
 
@@ -132,28 +131,33 @@ class Larafast
      */
     protected function constrainsSelectAndSortAndWhere($q, $model, $param)
     {
+        if($model[-1] == 's'){
+            $model = substr($model,0,-1);
+        }
         $selectArray = config('larafast.'.$model);
         foreach ($param as $key => $v) {
             if (is_integer($key)) {
-                if ($this->isSort($key)) {
-                    if ($v[0] == '-') {
-                        $q = $this->addSort($q, trim($v, '-'), 'DESC');
+                $explode_param = explode('=',$v);
+                if ($this->isSort($explode_param[0])) {
+                    if ($explode_param[1] == '-') {
+                        $q = $this->addSort($q, trim($explode_param[1], '-'), 'DESC');
                     } else {
-                        $q = $this->addSort($q, $v, 'ASC');
+                        $q = $this->addSort($q, $explode_param[1], 'ASC');
                     }
                 }
-                if ($this->isSelect($key)) {
-                    $selectArray[] = $v;
-                }
-                if ($this->isWhere($key)) {
+                else if ($this->isWhere($explode_param[0])) {
                     $operator = [
                         'like'   => 'like',
                         'equals' => '=',
                         'min'    => '>=',
                         'max'    => '<=',
                     ];
-                    $q = $this->addWhere($q, explode(':', $v)[0], explode(':', $v)[1], $operator[$key]);
+                    $q = $this->addWhere($q, explode(':', $explode_param[1])[0], explode(':', $explode_param[1])[1], $operator[$key]);
                 }
+                else {
+                    $selectArray[] = $v;
+                }
+                
             } else {
                 $q = $this->addEagerLoadRelation($q, $key, $v);
             }
