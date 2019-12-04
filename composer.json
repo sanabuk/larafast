@@ -17,7 +17,8 @@
     "illuminate/support": "~5.1",
     "illuminate/http": "~5.1",
     "illuminate/routing": "~5.1",
-    "illuminate/config": "~5.1"
+    "illuminate/config": "~5.1",
+    "symfony/http-foundation": "3.4.35"
   },
 
   "require-dev": {
