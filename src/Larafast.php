@@ -152,7 +152,7 @@ class Larafast
                         'min'    => '>=',
                         'max'    => '<=',
                     ];
-                    $q = $this->addWhere($q, explode(':', $explode_param[1])[0], explode(':', $explode_param[1])[1], $operator[$key]);
+                    $q = $this->addWhere($q, explode(':', $explode_param[1])[0], explode(':', $explode_param[1])[1], $operator[$explode_param[0]]);
                 }
                 else {
                     $selectArray[] = $v;
